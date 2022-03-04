@@ -1,10 +1,8 @@
 import React from "react";
-import { useOrganization, useOrganizations } from "@clerk/nextjs";
 import type { OrganizationResource } from "@clerk/types";
 import { useRefreshOrganizationList } from "./OrganizationList";
 
 export default ({ organization }: { organization: OrganizationResource }) => {
-  const { inviteMember } = useOrganization(organization.id);
   const [emailAddress, setEmailAddress] = React.useState("");
   const [role, setRole] = React.useState<"basic_member" | "admin">(
     "basic_member"
@@ -15,7 +13,7 @@ export default ({ organization }: { organization: OrganizationResource }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setDisabled(true);
-    await inviteMember({ emailAddress, role });
+    await organization.inviteMember({ emailAddress, role });
     setEmailAddress("");
     setRole("basic_member");
     setDisabled(false);

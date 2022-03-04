@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { OrganizationMembershipResource } from "@clerk/types";
 
 export default ({ organization }: { organization: OrganizationResource }) => {
-  const [members, setMembers] = useState<
+  const [memberships, setMemberships] = useState<
     null | OrganizationMembershipResource[]
   >(null);
   useEffect(() => {
-    organization.getMembers().then((members) => {
-      setMembers(members);
+    organization.getMemberships().then((memberships) => {
+      setMemberships(memberships);
     });
   }, []);
-  if (!members) {
+  if (!memberships) {
     return null;
   }
 
@@ -19,7 +19,7 @@ export default ({ organization }: { organization: OrganizationResource }) => {
     <div>
       <h2>Organization members</h2>
       <ul>
-        {members.map((m) => (
+        {memberships.map((m) => (
           <li>
             {m.publicUserData.firstName} {m.publicUserData.lastName} &lt;
             {m.publicUserData.identifier}&gt;: {m.role}
