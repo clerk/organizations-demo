@@ -5,9 +5,10 @@ import {
   SignedIn,
   SignedOut,
   RedirectToSignIn,
+  UserButton,
 } from "@clerk/nextjs";
 import { useRouter } from "next/router";
-import { OrganizationListProvider } from "../components/OrganizationList";
+import Link from "next/link";
 
 //  List pages you want to be publicly accessible, or leave empty if
 //  every page requires authentication. Use this naming strategy:
@@ -33,9 +34,19 @@ function MyApp({ Component, pageProps }) {
       ) : (
         <>
           <SignedIn>
-            <OrganizationListProvider>
-              <Component {...pageProps} />
-            </OrganizationListProvider>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Link href="/">
+                <a style={{ fontSize: "125%" }}>Home</a>
+              </Link>
+              <UserButton />
+            </div>
+            <Component {...pageProps} />
           </SignedIn>
           <SignedOut>
             <RedirectToSignIn />

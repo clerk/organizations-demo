@@ -1,38 +1,45 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "../../styles/Page.module.css";
-import { useOrganizationList } from "../../components/OrganizationList";
 import MemberList from "../../components/MemberList";
-import InviteMember from "../../components/InviteMember";
+import InvitationList from "../../components/InvitationList";
+import BackendTest from "../../components/BackendTest";
+import { useOrganizations } from "@clerk/nextjs";
+import type { OrganizationResource } from "@clerk/types";
+import { useEffect, useState } from "react";
 
 export default function Organization() {
   const { query } = useRouter();
 
-  const { loading, organizations } = useOrganizationList();
-  if (loading) {
-    return null;
-  }
+  const [organization, setOrganization] = useState<null | OrganizationResource>(
+    null
+  );
 
-  const org = organizations.find((x) => x.id === query.organizationId);
-  if (!org) {
+  const { getOrganization } = useOrganizations();
+  useEffect(() => {
+    getOrganization(query.organizationId as string).then((o) =>
+      setOrganization(o)
+    );
+  }, [getOrganization, setOrganization, query.organizationId]);
+
+  if (organization === null) {
     return null;
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Clerk Organizations Demo</title>
       </Head>
-      <div>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-      </div>
-      <h1>Organization: {org.name}</h1>
 
-      <MemberList organization={org} />
-      {org.role === "admin" && <InviteMember organization={org} />}
+      <h1>Organization: {organization.name}</h1>
+
+      <MemberList organization={organization} />
+      {organization.role === "admin" && (
+        <InvitationList organization={organization} />
+      )}
+
+      <BackendTest />
     </div>
   );
 }

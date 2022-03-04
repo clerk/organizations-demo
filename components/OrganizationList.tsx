@@ -1,42 +1,78 @@
-import React from "react";
-import { useOrganizations } from "@clerk/nextjs";
+import { useCallback, useEffect, useState } from "react";
 import type { OrganizationResource } from "@clerk/types";
+import { useOrganizations } from "@clerk/nextjs";
+import Link from "next/link";
 
-const OrganizationListCtx = React.createContext<{
-  organizations: null | OrganizationResource[];
-  refresh: () => Promise<void>;
-}>({ organizations: null, refresh: () => Promise.reject() });
-
-export const useOrganizationList = () => {
-  const ctx = React.useContext(OrganizationListCtx);
-  if (ctx.organizations === null) {
-    return { loading: true, organizations: [] };
-  }
-  return { loading: false, organizations: ctx.organizations };
-};
-
-export const useRefreshOrganizationList = () => {
-  const ctx = React.useContext(OrganizationListCtx);
-  return ctx.refresh;
-};
-
-export const OrganizationListProvider = ({ children }) => {
+export default ({ organization }: { organization: OrganizationResource }) => {
   const { getOrganizations } = useOrganizations();
-  const [organizations, setOrganizations] = React.useState<
+  const [organizations, setOrganizations] = useState<
     null | OrganizationResource[]
   >(null);
 
-  const refresh = React.useCallback(() => {
+  const refreshList = useCallback(() => {
     return getOrganizations().then((x) => setOrganizations(x));
   }, [getOrganizations, setOrganizations]);
 
-  React.useEffect(() => {
-    refresh();
-  }, [refresh]);
+  useEffect(() => {
+    refreshList();
+  }, [refreshList]);
+
+  if (!organizations) {
+    return null;
+  }
 
   return (
-    <OrganizationListCtx.Provider value={{ organizations, refresh }}>
-      {children}
-    </OrganizationListCtx.Provider>
+    <div>
+      <h2>Create organization</h2>
+      <CreateOrganization refreshList={refreshList} />
+
+      <h2>Your organizations</h2>
+      {organizations.length === 0 ? (
+        <div>You don't belong to any organizations yet.</div>
+      ) : (
+        <ul>
+          {organizations.map((o) => (
+            <li key={o.id}>
+              <Link href={`/organizations/${o.id}`}>
+                <a>{o.name}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const CreateOrganization = ({
+  refreshList,
+}: {
+  refreshList: () => Promise<void>;
+}) => {
+  const { createOrganization } = useOrganizations();
+
+  const [name, setName] = useState("");
+  const [disabled, setDisabled] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setDisabled(true);
+    await createOrganization({ name: name });
+    await refreshList();
+    setName("");
+    setDisabled(false);
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button type="submit" disabled={disabled}>
+        Create
+      </button>
+    </form>
   );
 };
