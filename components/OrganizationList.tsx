@@ -1,23 +1,32 @@
 import { useCallback, useEffect, useState } from "react";
-import type { OrganizationResource } from "@clerk/types";
+import type {
+  OrganizationMembershipResource,
+  OrganizationResource,
+} from "@clerk/types";
 import { useOrganizations } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default ({ organization }: { organization: OrganizationResource }) => {
-  const { getOrganizations } = useOrganizations();
-  const [organizations, setOrganizations] = useState<
-    null | OrganizationResource[]
+const OrganizationList = ({
+  organization,
+}: {
+  organization: OrganizationResource;
+}) => {
+  const { getOrganizationMemberships } = useOrganizations();
+  const [organizationMemberships, setOrganizationMemberships] = useState<
+    null | OrganizationMembershipResource[]
   >(null);
 
   const refreshList = useCallback(() => {
-    return getOrganizations().then((x) => setOrganizations(x));
-  }, [getOrganizations, setOrganizations]);
+    return getOrganizationMemberships().then((organizationMemberships) =>
+      setOrganizationMemberships(organizationMemberships)
+    );
+  }, [getOrganizationMemberships, setOrganizationMemberships]);
 
   useEffect(() => {
     refreshList();
   }, [refreshList]);
 
-  if (!organizations) {
+  if (!organizationMemberships) {
     return null;
   }
 
@@ -27,14 +36,14 @@ export default ({ organization }: { organization: OrganizationResource }) => {
       <CreateOrganization refreshList={refreshList} />
 
       <h2>Your organizations</h2>
-      {organizations.length === 0 ? (
+      {organizationMemberships.length === 0 ? (
         <div>You don't belong to any organizations yet.</div>
       ) : (
         <ul>
-          {organizations.map((o) => (
+          {organizationMemberships.map((o) => (
             <li key={o.id}>
-              <Link href={`/organizations/${o.id}`}>
-                <a>{o.name}</a>
+              <Link href={`/organizations/${o.organization.id}`}>
+                <a>{o.organization.name}</a>
               </Link>
             </li>
           ))}
@@ -76,3 +85,5 @@ const CreateOrganization = ({
     </form>
   );
 };
+
+export default OrganizationList;
