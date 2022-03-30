@@ -1,16 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import type {
-  OrganizationMembershipResource,
-  OrganizationResource,
-} from "@clerk/types";
+import type { OrganizationMembershipResource } from "@clerk/types";
 import { useOrganizations } from "@clerk/nextjs";
 import Link from "next/link";
 
-const OrganizationList = ({
-  organization,
-}: {
-  organization: OrganizationResource;
-}) => {
+const OrganizationList = () => {
   const { getOrganizationMemberships } = useOrganizations();
   const [organizationMemberships, setOrganizationMemberships] = useState<
     null | OrganizationMembershipResource[]

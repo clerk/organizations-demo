@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 
-export default () => {
+export default function BackendTest() {
   const [data, setData] = useState<any>(null);
   const { query } = useRouter();
   const { organizationId } = query;
@@ -26,4 +26,4 @@ export default () => {
       {data && <pre>{JSON.stringify(data, "", 2)}</pre>}
     </div>
   );
-};
+}

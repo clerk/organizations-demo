@@ -4,27 +4,44 @@ import { useRouter } from "next/router";
 import MemberList from "../../components/MemberList";
 import InvitationList from "../../components/InvitationList";
 import BackendTest from "../../components/BackendTest";
-import { useOrganizations } from "@clerk/nextjs";
-import type { OrganizationResource } from "@clerk/types";
+import { useOrganizations, useUser } from "@clerk/nextjs";
+import type { OrganizationMembershipResource } from "@clerk/types";
 import { useEffect, useState } from "react";
 
 export default function Organization() {
-  const { query } = useRouter();
+  const {
+    query: { organizationId },
+  } = useRouter();
 
-  const [organization, setOrganization] = useState<null | OrganizationResource>(
-    null
+  const [organizationMemberships, setOrganizationMemberships] = useState<
+    OrganizationMembershipResource[]
+  >([]);
+
+  const { getOrganizationMemberships } = useOrganizations();
+
+  useEffect(() => {
+    async function fetchOrganizationMemberships() {
+      try {
+        const orgMemberships = await getOrganizationMemberships();
+        setOrganizationMemberships(orgMemberships);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    fetchOrganizationMemberships();
+  }, [organizationId, getOrganizationMemberships]);
+
+  const currentOrganizationMembership = organizationMemberships.find(
+    (membership) => membership.organization.id === organizationId
   );
 
-  const { getOrganization } = useOrganizations();
-  useEffect(() => {
-    getOrganization(query.organizationId as string).then((o) =>
-      setOrganization(o)
-    );
-  }, [getOrganization, setOrganization, query.organizationId]);
-
-  if (organization === null) {
+  if (!currentOrganizationMembership) {
     return null;
   }
+
+  const isAdmin = currentOrganizationMembership.role === "admin";
+  const currentOrganization = currentOrganizationMembership.organization;
 
   return (
     <div>
@@ -32,12 +49,13 @@ export default function Organization() {
         <title>Clerk Organizations Demo</title>
       </Head>
 
-      <h1>Organization: {organization.name}</h1>
+      <h1>Organization: {currentOrganization.name}</h1>
 
-      <MemberList organization={organization} />
-      {organization.role === "admin" && (
-        <InvitationList organization={organization} />
-      )}
+      <MemberList
+        isCurrentUserAdmin={isAdmin}
+        organization={currentOrganization}
+      />
+      {isAdmin && <InvitationList organization={currentOrganization} />}
 
       <BackendTest />
     </div>

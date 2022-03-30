@@ -4,7 +4,11 @@ import type {
   OrganizationInvitationResource,
 } from "@clerk/types";
 
-export default ({ organization }: { organization: OrganizationResource }) => {
+export default function InvitationList({
+  organization,
+}: {
+  organization: OrganizationResource;
+}) {
   const [invitations, setInvitations] = useState<
     null | OrganizationInvitationResource[]
   >(null);
@@ -43,7 +47,7 @@ export default ({ organization }: { organization: OrganizationResource }) => {
       </ul>
     </div>
   );
-};
+}
 
 const InviteMember = ({
   organization,

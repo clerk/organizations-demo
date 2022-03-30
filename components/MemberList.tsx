@@ -1,10 +1,16 @@
-import type { OrganizationResource } from "@clerk/types";
+import type { MembershipRole, OrganizationResource } from "@clerk/types";
 import { useCallback, useEffect, useState } from "react";
 import { OrganizationMembershipResource } from "@clerk/types";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 
-export default ({ organization }: { organization: OrganizationResource }) => {
+export default function MemberList({
+  organization,
+  isCurrentUserAdmin,
+}: {
+  organization: OrganizationResource;
+  isCurrentUserAdmin: boolean;
+}) {
   const [memberships, setMemberships] = useState<
     null | OrganizationMembershipResource[]
   >(null);
@@ -31,34 +37,26 @@ export default ({ organization }: { organization: OrganizationResource }) => {
           <li key={m.id}>
             {m.publicUserData.firstName} {m.publicUserData.lastName} &lt;
             {m.publicUserData.identifier}&gt; :: {m.role}
-            <AdminControls
-              refreshList={refreshList}
-              organization={organization}
-              membership={m}
-            />
+            {isCurrentUserAdmin && (
+              <AdminControls refreshList={refreshList} membership={m} />
+            )}
             <SelfAdminControls membership={m} memberships={memberships} />
           </li>
         ))}
       </ul>
     </div>
   );
-};
+}
 
 const AdminControls = ({
-  organization,
   membership,
   refreshList,
 }: {
-  organization: OrganizationResource;
   membership: OrganizationMembershipResource;
   refreshList: () => Promise<void>;
 }) => {
   const [disabled, setDisabled] = useState(false);
   const { id: userId } = useUser();
-
-  if (organization.role !== "admin") {
-    return null;
-  }
 
   if (membership.publicUserData.userId === userId) {
     return null;
@@ -70,16 +68,9 @@ const AdminControls = ({
     await refreshList();
   };
 
-  const changeToAdmin = async () => {
+  const changeRole = async (role: MembershipRole) => {
     setDisabled(true);
-    await membership.update({ role: "admin" });
-    await refreshList();
-    setDisabled(false);
-  };
-
-  const changeToMember = async () => {
-    setDisabled(true);
-    await membership.update({ role: "basic_member" });
+    await membership.update({ role });
     await refreshList();
     setDisabled(false);
   };
@@ -91,11 +82,11 @@ const AdminControls = ({
         Remove member
       </button>{" "}
       {membership.role === "admin" ? (
-        <button disabled={disabled} onClick={changeToMember}>
+        <button disabled={disabled} onClick={() => changeRole("basic_member")}>
           Change to member
         </button>
       ) : (
-        <button disabled={disabled} onClick={changeToAdmin}>
+        <button disabled={disabled} onClick={() => changeRole("admin")}>
           Change to admin
         </button>
       )}
@@ -107,7 +98,6 @@ const SelfAdminControls = ({
   membership,
   memberships,
 }: {
-  organization: OrganizationResource;
   membership: OrganizationMembershipResource;
   memberships: OrganizationMembershipResource[];
 }) => {
