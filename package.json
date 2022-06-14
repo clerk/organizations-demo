@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^2.11.18",
-    "@clerk/types": "^1.28.1",
+    "@clerk/nextjs": "^3.6.6",
+    "@clerk/types": "^2.15.0",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
@@ -20,5 +20,8 @@
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
     "typescript": "^4.6.2"
+  },
+  "resolutions": {
+    "@clerk/clerk-react": "file:../clerk_docker/javascript/packages/react"
   }
 }

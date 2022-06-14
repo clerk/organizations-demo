@@ -1,47 +1,37 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import MemberList from "../../components/MemberList";
 import InvitationList from "../../components/InvitationList";
 import BackendTest from "../../components/BackendTest";
-import { useOrganizations, useUser } from "@clerk/nextjs";
-import type { OrganizationMembershipResource } from "@clerk/types";
-import { useEffect, useState } from "react";
+import { useOrganization, useOrganizationList } from "@clerk/nextjs";
+import { useEffect } from "react";
 
 export default function Organization() {
   const {
     query: { organizationId },
   } = useRouter();
 
-  const [organizationMemberships, setOrganizationMemberships] = useState<
-    OrganizationMembershipResource[]
-  >([]);
+  const { setActive } = useOrganizationList();
 
-  const { getOrganizationMemberships } = useOrganizations();
+  const {
+    organization: currentOrganization,
+    membership,
+    isLoaded,
+  } = useOrganization();
 
-  useEffect(() => {
-    async function fetchOrganizationMemberships() {
-      try {
-        const orgMemberships = await getOrganizationMemberships();
-        setOrganizationMemberships(orgMemberships);
-      } catch (err) {
-        console.log(err);
-      }
-    }
+  currentOrganization &&
+    organizationId !== currentOrganization.id &&
+    setActive({ organization: organizationId as string });
 
-    fetchOrganizationMemberships();
-  }, [organizationId, getOrganizationMemberships]);
-
-  const currentOrganizationMembership = organizationMemberships.find(
-    (membership) => membership.organization.id === organizationId
-  );
-
-  if (!currentOrganizationMembership) {
+  if (
+    !isLoaded ||
+    !currentOrganization
+    // currentOrganization.id !== organizationId
+  ) {
     return null;
   }
 
-  const isAdmin = currentOrganizationMembership.role === "admin";
-  const currentOrganization = currentOrganizationMembership.organization;
+  const isAdmin = membership.role === "admin";
 
   return (
     <div>
@@ -51,11 +41,8 @@ export default function Organization() {
 
       <h1>Organization: {currentOrganization.name}</h1>
 
-      <MemberList
-        isCurrentUserAdmin={isAdmin}
-        organization={currentOrganization}
-      />
-      {isAdmin && <InvitationList organization={currentOrganization} />}
+      <MemberList />
+      {isAdmin && <InvitationList />}
 
       <BackendTest />
     </div>

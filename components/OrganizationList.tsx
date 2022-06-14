@@ -1,42 +1,28 @@
 import { useCallback, useEffect, useState } from "react";
 import type { OrganizationMembershipResource } from "@clerk/types";
-import { useOrganizations } from "@clerk/nextjs";
+import { useOrganizationList, useOrganizations } from "@clerk/nextjs";
 import Link from "next/link";
 
 const OrganizationList = () => {
-  const { getOrganizationMemberships } = useOrganizations();
-  const [organizationMemberships, setOrganizationMemberships] = useState<
-    null | OrganizationMembershipResource[]
-  >(null);
-
-  const refreshList = useCallback(() => {
-    return getOrganizationMemberships().then((organizationMemberships) =>
-      setOrganizationMemberships(organizationMemberships)
-    );
-  }, [getOrganizationMemberships, setOrganizationMemberships]);
-
-  useEffect(() => {
-    refreshList();
-  }, [refreshList]);
-
-  if (!organizationMemberships) {
+  const { organizationList, isLoaded } = useOrganizationList();
+  if (!isLoaded) {
     return null;
   }
 
   return (
     <div>
       <h2>Create organization</h2>
-      <CreateOrganization refreshList={refreshList} />
+      {/* <CreateOrganization refreshList={() => ({})} /> */}
 
       <h2>Your organizations</h2>
-      {organizationMemberships.length === 0 ? (
+      {organizationList.length === 0 ? (
         <div>You don't belong to any organizations yet.</div>
       ) : (
         <ul>
-          {organizationMemberships.map((o) => (
-            <li key={o.id}>
-              <Link href={`/organizations/${o.organization.id}`}>
-                <a>{o.organization.name}</a>
+          {organizationList.map(({ organization }) => (
+            <li key={organization.id}>
+              <Link href={`/organizations/${organization.id}`}>
+                <a>{organization.name}</a>
               </Link>
             </li>
           ))}
