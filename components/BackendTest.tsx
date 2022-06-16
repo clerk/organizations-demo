@@ -1,17 +1,16 @@
 import { useState, useCallback } from "react";
-import { useRouter } from "next/router";
+import { useOrganization } from "@clerk/nextjs";
 
 export default function BackendTest() {
   const [data, setData] = useState<any>(null);
-  const { query } = useRouter();
-  const { organizationId } = query;
+  const { organization } = useOrganization();
 
   const test = useCallback(async () => {
     setData(null);
-    const res = await fetch(`/api/authTest?organizationId=${organizationId}`);
+    const res = await fetch(`/api/authTest?organizationId=${organization.id}`);
     const data = await res.json();
     setData(data);
-  }, [setData, organizationId]);
+  }, [setData, organization.id]);
 
   return (
     <div>

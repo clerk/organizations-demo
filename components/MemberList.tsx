@@ -1,6 +1,8 @@
-import type { MembershipRole } from "@clerk/types";
+import type {
+  MembershipRole,
+  OrganizationMembershipResource,
+} from "@clerk/types";
 import { useState } from "react";
-import { OrganizationMembershipResource } from "@clerk/types";
 import { useOrganization, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 
@@ -24,7 +26,7 @@ export default function MemberList() {
             {m.publicUserData.firstName} {m.publicUserData.lastName} &lt;
             {m.publicUserData.identifier}&gt; :: {m.role}
             {isCurrentUserAdmin && <AdminControls membership={m} />}
-            {/* <SelfAdminControls membership={m} memberships={memberships} /> */}
+            <SelfAdminControls membership={m} />
           </li>
         ))}
       </ul>
@@ -78,16 +80,20 @@ const AdminControls = ({
 
 const SelfAdminControls = ({
   membership,
-  memberships,
 }: {
   membership: OrganizationMembershipResource;
-  memberships: OrganizationMembershipResource[];
 }) => {
   const { push } = useRouter();
   const [disabled, setDisabled] = useState(false);
-  const { id: userId } = useUser();
+  const {
+    user: { id: userId },
+    isLoaded,
+  } = useUser();
+  const { membershipList } = useOrganization({
+    membershipList: {},
+  });
 
-  if (membership.publicUserData.userId !== userId) {
+  if (membership.publicUserData.userId !== userId || !isLoaded) {
     return null;
   }
 
@@ -95,7 +101,7 @@ const SelfAdminControls = ({
   // if there's at least one other admin
   const canLeave =
     membership.role !== "admin" ||
-    memberships.findIndex(
+    membershipList.findIndex(
       (x) => x.id !== membership.id && x.role === "admin"
     ) !== -1;
 
