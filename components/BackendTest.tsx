@@ -1,16 +1,15 @@
 import { useState, useCallback } from "react";
-import { useOrganization } from "@clerk/nextjs";
 
 export default function BackendTest() {
   const [data, setData] = useState<any>(null);
-  const { organization } = useOrganization();
 
   const test = useCallback(async () => {
     setData(null);
-    const res = await fetch(`/api/authTest?organizationId=${organization.id}`);
+    /* Clerk already stores the active organization on the JWT claims */
+    const res = await fetch(`/api/authTest`);
     const data = await res.json();
     setData(data);
-  }, [setData, organization.id]);
+  }, [setData]);
 
   return (
     <div>

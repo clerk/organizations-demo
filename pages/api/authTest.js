@@ -4,6 +4,6 @@ export default requireAuth((req, res) => {
   res.statusCode = 200;
   res.json({
     userId: req.auth.userId,
-    role: req.auth.claims.orgs[req.query.organizationId],
+    role: req.auth.claims.org_role,
   });
 });
