@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useOrganization } from "@clerk/nextjs";
 
 export default function InvitationList() {
-  const { invitationList } = useOrganization();
+  const { invitationList } = useOrganization({ invitationList: {} });
 
   if (!invitationList) {
     return null;
