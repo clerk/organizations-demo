@@ -21,7 +21,7 @@ export default function BackendTest() {
       <div>
         <button onClick={test}>Test</button>
       </div>
-      {data && <pre>{JSON.stringify(data, "", 2)}</pre>}
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
     </div>
   );
 }
