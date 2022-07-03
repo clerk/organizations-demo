@@ -19,6 +19,10 @@
 
 This starter project shows how to use [Clerk](https://www.clerk.dev/?utm_source=github&utm_medium=starter_repos&utm_campaign=organizations_starter) with to build a rather lean interface showcasing the power of the [Organizations feature](https://clerk.dev/docs/organizations/overview?utm_source=github&utm_medium=starter_repos&utm_campaign=organizations_starter).
 
+## Live Demo
+
+[https://organizations-demo.clerk.app](https://organizations-demo.clerk.app)
+
 ## Getting Started
 
 ### Prerequisites
