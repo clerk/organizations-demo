@@ -24,6 +24,10 @@ export default function Switcher() {
     setActive({ organization: e.value });
   };
 
+  if (!organization) {
+    return null;
+  }
+
   return (
     <div>
       <Head>

@@ -2,13 +2,14 @@ import { useOrganizationList } from "@clerk/nextjs";
 import { FormEventHandler, useState } from "react";
 
 export default function CreateOrganization() {
-  const { createOrganization } = useOrganizationList();
+  const { createOrganization, setActive } = useOrganizationList();
   const [organizationName, setOrganizationName] = useState("");
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    createOrganization({ name: organizationName });
+    const organization = await createOrganization({ name: organizationName });
     setOrganizationName("");
+    setActive({ organization });
   };
 
   return (
