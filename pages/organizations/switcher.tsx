@@ -10,7 +10,6 @@ export default function Switcher() {
   const router = useRouter();
   const { setActive, organizationList, isLoaded } = useOrganizationList();
   const { organization, ...rest } = useOrganization();
-  console.log('useOrganization return', organization, rest)
 
   if (!isLoaded) {
     return null;
