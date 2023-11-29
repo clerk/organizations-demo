@@ -1,26 +1,25 @@
-import Link from "next/link";
-import { useOrganizationList } from "@clerk/nextjs";
+import Link from "next/link"
+import { useOrganizationList } from "@clerk/nextjs"
 
 export default function Organizations() {
-  const { organizationList } = useOrganizationList();
+  // const { organizationList } = useOrganizationList();
+  //
+  // if (!organizationList) {
+  //   return null;
+  // }
 
-  if (!organizationList) {
-    return null;
-  }
-
-  return (
-    <div>
-      <h2>Your organizations</h2>
-      <ul>
-        {organizationList.map(({ organization }) => (
-          <Link
-            key={organization.id}
-            href={`/organizations/${organization.id}`}
-          >
-            {organization.name}
-          </Link>
-        ))}
-      </ul>
-    </div>
-  );
+  return null
+  // <div>
+  //   <h2>Your organizations</h2>
+  //   <ul>
+  //     {organizationList.map(({ organization }) => (
+  //       <Link
+  //         key={organization.id}
+  //         href={`/organizations/${organization.id}`}
+  //       >
+  //         {organization.name}
+  //       </Link>
+  //     ))}
+  //   </ul>
+  // </div>
 }
