@@ -4,16 +4,43 @@
 
 
 @layer base {
-  body {
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  h1 {
-    @apply text-3xl font-bold
-  }
-  h2 {
-    @apply text-2xl font-bold
-  }
-  h2 {
-    @apply text-xl font-bold
-  }
+    body {
+        font-feature-settings: "rlig" 1, "calt" 1;
+        @apply bg-slate-50;
+    }
+
+    h1 {
+        @apply text-3xl font-bold
+    }
+
+    h2 {
+        @apply text-2xl font-bold
+    }
+
+    h2 {
+        @apply text-xl font-bold
+    }
+
+    label:not(.cl-rootBox) {
+        @apply block text-xs font-medium text-gray-700;
+    }
+
+    input:not([type='checkbox']):not(.cl-rootBox input) {
+        @apply mt-1 w-full rounded-md border-gray-200 border shadow-sm sm:text-sm;
+    }
+
+    form {
+        @apply flex flex-col gap-4 items-start;
+    }
+
+    button:not(.cl-rootBox button) {
+        @apply py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none
+    }
+
+    input:where(:not([type])),
+    select,
+    textarea,
+    input:not(.cl-rootBox input) {
+        @apply px-2 py-2
+    }
 }

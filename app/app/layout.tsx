@@ -7,15 +7,25 @@ export default function RealAppLayout(props: PropsWithChildren) {
 
   if (!orgId) {
     return (
-      <div className="space-y-4">
-        <h1>You have not selected an organization</h1>
-        <OrganizationList />
+      <div className=" flex h-full w-full flex-col gap-5">
+        <section className="col-span-2 m-auto flex w-full max-w-lg items-center justify-center space-y-6 pt-6">
+          <div className="space-y-4">
+            <h1>Welcome</h1>
+            <p className="text-sm">
+              This part of the application requires the user to select an
+              organization in order to proceed. If you are not part of an
+              organization, you can accept an invitation or create your own
+              organization
+            </p>
+            <OrganizationList hidePersonal={true} />
+          </div>
+        </section>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex h-full w-full flex-col gap-5">
       <section className="m-auto w-full max-w-lg rounded-md border bg-amber-100 p-2">
         <p>
           This is a dummy app which mimics a content management platform and
