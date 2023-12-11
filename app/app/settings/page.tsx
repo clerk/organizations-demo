@@ -1,6 +1,7 @@
-import { Experimental__Gate, OrganizationProfile } from "@clerk/nextjs"
+import { OrganizationProfile, auth } from "@clerk/nextjs"
 
 export default function CreateOrganizationPage() {
+  auth().protect({ role: "admin" })
   return (
     <main
       className={

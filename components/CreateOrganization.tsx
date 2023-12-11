@@ -5,9 +5,7 @@ import { UserMembershipParams } from "@/utils/organizations"
 
 export function CustomCreateOrganizationForm() {
   const { isLoaded, createOrganization, setActive, userMemberships } =
-    useOrganizationList({
-      userMemberships: UserMembershipParams,
-    })
+    useOrganizationList(UserMembershipParams)
   const [isLoading, setLoading] = useState(false)
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {

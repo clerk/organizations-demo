@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Experimental__Gate } from "@clerk/nextjs"
+import { Protect } from "@clerk/nextjs"
 import { PostActions } from "@/app/app/post-actions"
 import { PostButton } from "@/app/app/post-button"
 
@@ -15,14 +15,14 @@ function PostItem(props: PostItemProps) {
       <p className="font-semibold">{props.title}</p>
 
       <div className="relative border border-blue-500 px-5 py-2 before:absolute before:-top-4 before:left-0 before:text-xs before:text-blue-500 before:content-['RSC']">
-        <Experimental__Gate
-          some={[
-            { permission: "org:posts:manage" },
-            { permission: "org:posts:delete" },
-          ]}
+        <Protect
+          condition={(has) =>
+            has({ permission: "org:posts:manage" }) ||
+            has({ permission: "org:posts:delete" })
+          }
         >
           <PostActions {...props} />
-        </Experimental__Gate>
+        </Protect>
       </div>
     </div>
   )
@@ -61,12 +61,12 @@ export default function CreateOrganizationPage() {
       <div className={"flex w-full max-w-lg flex-col gap-4"}>
         <h1>POSTS</h1>
 
-        <Experimental__Gate
+        <Protect
           permission="org:posts:read"
           fallback={<p>Access not granted</p>}
         >
           <Posts />
-        </Experimental__Gate>
+        </Protect>
         <PostButton />
       </div>
     </main>
