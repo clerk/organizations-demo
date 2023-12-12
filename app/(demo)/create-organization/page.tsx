@@ -1,5 +1,5 @@
 import * as React from "react"
-import { CreateOrganization } from "@clerk/nextjs"
+import { ClerkLoading, CreateOrganization } from "@clerk/nextjs"
 import { CustomCreateOrganizationForm } from "@/components/CreateOrganization"
 import { MyMemberships } from "@/components/OrganizationList"
 
@@ -12,6 +12,7 @@ export default function CreateOrganizationPage() {
     >
       <div className={"flex w-full flex-col"}>
         <h1>UI Component</h1>
+        <ClerkLoading>Loading ...</ClerkLoading>
         <CreateOrganization />
         <h1 className="mb-4 mt-20">Custom UI </h1>
         <CustomCreateOrganizationForm />

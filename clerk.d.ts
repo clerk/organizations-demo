@@ -5,5 +5,5 @@ interface ClerkAuthorization {
     | "org:billing:manage"
     | "org:billing:read"
     | "org:posts:read"
-  role: "org:editor"
+  role: "org:editor" | "admin" | "org:viewer"
 }

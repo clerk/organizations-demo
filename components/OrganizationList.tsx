@@ -48,10 +48,14 @@ export const MyMemberships = () => {
 
       <button
         className="inline-block"
-        disabled={!userMemberships.hasNextPage}
+        disabled={!userMemberships.hasNextPage || userMemberships.isFetching}
         onClick={() => userMemberships.fetchNext()}
       >
-        {userMemberships.hasNextPage ? "Load more" : "No more to load"}
+        {userMemberships.isFetching
+          ? "Loading"
+          : userMemberships.hasNextPage
+          ? "Load more"
+          : "No more to load"}
       </button>
     </>
   )

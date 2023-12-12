@@ -1,7 +1,5 @@
-import * as React from "react"
 import { shouldGate } from "@/utils/organizations"
 import {
-  ClerkLoaded,
   ClerkLoading,
   OrganizationList,
   OrganizationSwitcher,
@@ -21,6 +19,7 @@ export default function CreateOrganizationPage() {
     >
       <div className={"flex flex-col"}>
         <h1 className="mb-4 mt-20">Pre-built OrganizationList</h1>
+        <ClerkLoading>Loading ...</ClerkLoading>
         <OrganizationList
           hidePersonal={shouldGate}
           afterSelectPersonalUrl="/"
@@ -29,6 +28,7 @@ export default function CreateOrganizationPage() {
         />
 
         <h1 className="mb-4 mt-20">Pre-built OrganizationSwitcher</h1>
+        <ClerkLoading>Loading ...</ClerkLoading>
         <OrganizationSwitcher />
         <h1 className="mb-4 mt-20">List my memberships</h1>
         <MyMemberships />

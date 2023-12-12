@@ -1,9 +1,11 @@
 import { PropsWithChildren } from "react"
-import { auth, OrganizationList } from "@clerk/nextjs"
+import { auth, OrganizationList, Protect } from "@clerk/nextjs"
 import Link from "next/link"
 
-export default function RealAppLayout(props: PropsWithChildren) {
-  const { orgId } = auth()
+export default function AuthorizationPlaygroundLayout(
+  props: PropsWithChildren
+) {
+  const { orgId, has } = auth()
 
   if (!orgId) {
     return (
@@ -43,14 +45,16 @@ export default function RealAppLayout(props: PropsWithChildren) {
       </section>
       <nav className="m-auto w-full max-w-lg rounded border">
         <Link
-          href={"/app"}
+          href={"/authorization-playground"}
           className="inline-block px-4 py-1 hover:bg-slate-100"
         >
           Posts
         </Link>
+
         <Link
-          href={"/app/settings"}
-          className="inline-block px-4 py-1 hover:bg-slate-100"
+          href={"/authorization-playground/settings"}
+          className="inline-block px-4 py-1 hover:bg-slate-100 aria-disabled:pointer-events-none aria-disabled:bg-zinc-100 aria-disabled:text-zinc-500"
+          aria-disabled={!has({ permission: "org:posts:manage" })}
         >
           Settings
         </Link>

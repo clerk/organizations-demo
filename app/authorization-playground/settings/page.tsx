@@ -1,7 +1,9 @@
-import { OrganizationProfile, auth } from "@clerk/nextjs"
+import { ClerkLoading, OrganizationProfile, auth } from "@clerk/nextjs"
 
-export default function CreateOrganizationPage() {
-  auth().protect({ role: "admin" })
+export default function CustomAppSettings() {
+  auth().protect({
+    permission: "org:posts:manage",
+  })
   return (
     <main
       className={
@@ -11,6 +13,7 @@ export default function CreateOrganizationPage() {
       <div className={"flex w-full max-w-3xl flex-col gap-4"}>
         <h1>Settings</h1>
         <h2>Clerk Organization Settings</h2>
+        <ClerkLoading>Loading ...</ClerkLoading>
         <OrganizationProfile
           appearance={{
             elements: {
@@ -21,6 +24,7 @@ export default function CreateOrganizationPage() {
         />
 
         <h2>Post Organization Settings</h2>
+        {/*TODO: Add a fake form*/}
         {/*<Experimental__Gate*/}
         {/*  permission="org:posts:read"*/}
         {/*  fallback={<p>Access not granted</p>}*/}

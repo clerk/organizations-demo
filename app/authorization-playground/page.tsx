@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Protect } from "@clerk/nextjs"
-import { PostActions } from "@/app/app/post-actions"
-import { PostButton } from "@/app/app/post-button"
+import { PostActions } from "@/app/authorization-playground/post-actions"
+import { PostButton } from "@/app/authorization-playground/post-button"
 
 interface PostItemProps {
   id: string
@@ -17,7 +17,7 @@ function PostItem(props: PostItemProps) {
       <div className="relative border border-blue-500 px-5 py-2 before:absolute before:-top-4 before:left-0 before:text-xs before:text-blue-500 before:content-['RSC']">
         <Protect
           condition={(has) =>
-            has({ permission: "org:posts:manage" }) ||
+            has({ permission: "org:posts:delete" }) ||
             has({ permission: "org:posts:delete" })
           }
         >

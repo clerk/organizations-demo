@@ -1,7 +1,6 @@
 "use client"
 
 import { Protect } from "@clerk/nextjs"
-import * as React from "react"
 
 export function PostButton() {
   return (

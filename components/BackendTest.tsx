@@ -1,15 +1,16 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from "react"
 
 export default function BackendTest() {
-  const [data, setData] = useState<any>(null);
+  //   TODO: Find a usecase for this
+  const [data, setData] = useState<any>(null)
 
   const test = useCallback(async () => {
-    setData(null);
+    setData(null)
     /* Clerk already stores the active organization on the JWT claims */
-    const res = await fetch(`/api/authTest`);
-    const data = await res.json();
-    setData(data);
-  }, [setData]);
+    const res = await fetch(`/api/authTest`)
+    const data = await res.json()
+    setData(data)
+  }, [setData])
 
   return (
     <div>
@@ -23,5 +24,5 @@ export default function BackendTest() {
       </div>
       {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
     </div>
-  );
+  )
 }

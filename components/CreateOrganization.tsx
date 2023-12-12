@@ -6,14 +6,14 @@ import { UserMembershipParams } from "@/utils/organizations"
 export function CustomCreateOrganizationForm() {
   const { isLoaded, createOrganization, setActive, userMemberships } =
     useOrganizationList(UserMembershipParams)
-  const [isLoading, setLoading] = useState(false)
+  const [isSubmitting, setSubmitting] = useState(false)
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     if (!isLoaded) {
       return null
     }
-    setLoading(true)
+    setSubmitting(true)
 
     const submittedData = Object.fromEntries(
       new FormData(e.currentTarget).entries()
@@ -35,7 +35,7 @@ export function CustomCreateOrganizationForm() {
       if (e.target instanceof HTMLFormElement) {
         e.target.reset()
       }
-      setLoading(false)
+      setSubmitting(false)
     }
   }
 
@@ -48,7 +48,7 @@ export function CustomCreateOrganizationForm() {
           type="text"
           name="organizationName"
           placeholder="e.g. Acme Co"
-          disabled={isLoading}
+          disabled={isSubmitting}
         />
       </div>
       <div className="flex w-full gap-1">
@@ -61,11 +61,11 @@ export function CustomCreateOrganizationForm() {
           name="asActive"
           defaultChecked={true}
           className="inline-block"
-          disabled={isLoading}
+          disabled={isSubmitting}
         />
       </div>
-      <button type="submit" disabled={isLoading}>
-        Create organization {isLoading && "(Submitting)"}
+      <button type="submit" disabled={isSubmitting || !isLoaded}>
+        Create organization {isSubmitting && "(Submitting)"}
       </button>
     </form>
   )

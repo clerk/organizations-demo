@@ -8,7 +8,7 @@ export default function DashboardPage() {
   return (
     <main className={"col-span-2 m-auto w-full max-w-lg space-y-6 pt-6"}>
       <Link
-        href="/app"
+        href="/authorization-playground"
         className="block w-full rounded border p-5 text-center text-2xl font-bold shadow"
       >
         Authorization with Custom UI
@@ -36,14 +36,6 @@ export default function DashboardPage() {
             className="block rounded border p-5 text-center text-lg font-medium shadow"
           >
             Create Organization
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/switcher"
-            className="block rounded border p-5 text-center text-lg font-medium shadow"
-          >
-            Switcher
           </Link>
         </li>
       </ul>

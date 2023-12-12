@@ -15,7 +15,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <html lang="en" suppressHydrationWarning>
         <head />
         <body className={cn("min-h-screen font-sans antialiased")}>
-          <header className="m-auto flex min-h-[72px] w-full max-w-lg justify-between py-5">
+          <header className="m-auto flex min-h-[72px] w-full max-w-lg items-center justify-between gap-4 py-5">
             <ClerkLoading>Loading ...</ClerkLoading>
             <OrganizationSwitcher
               appearance={{
@@ -24,9 +24,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 },
               }}
             />
-            <Link href="https://github.com/clerk/organizations-demo">
-              Github
-            </Link>
+
+            <nav className={"ml-auto flex gap-4"}>
+              <Link href="/">Home</Link>
+              <Link href="https://github.com/clerk/organizations-demo">
+                Github
+              </Link>
+            </nav>
+
             <UserButton
               appearance={{
                 elements: {

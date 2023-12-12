@@ -8,9 +8,5 @@ export const metadata: Metadata = {
 }
 
 export default function SignUpPage() {
-  return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
-      <SignUp />
-    </div>
-  )
+  return <SignUp />
 }

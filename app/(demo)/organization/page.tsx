@@ -1,5 +1,5 @@
 import * as React from "react"
-import { OrganizationProfile } from "@clerk/nextjs"
+import { ClerkLoading, OrganizationProfile } from "@clerk/nextjs"
 
 export default function CreateOrganizationPage() {
   return (
@@ -10,11 +10,16 @@ export default function CreateOrganizationPage() {
     >
       <div className={"flex flex-col"}>
         <h1>UI Component</h1>
+        <ClerkLoading>Loading ...</ClerkLoading>
         <OrganizationProfile />
         <h1>Custom List Domains</h1>
+        {/*TODO: Implement*/}
         <h1>Custom List Memberships</h1>
+        {/*TODO: Implement*/}
         <h1>Custom List Invitations</h1>
-        <h1>Custom List Memberhip Requests</h1>
+        {/*TODO: Implement*/}
+        <h1>Custom List Membership Requests</h1>
+        {/*TODO: Implement*/}
       </div>
     </main>
   )
