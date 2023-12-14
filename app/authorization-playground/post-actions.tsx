@@ -12,7 +12,7 @@ export function PostActions(props: PostItemProps) {
   const { has, isLoaded } = useAuth()
   if (!isLoaded) return null
 
-  const canEdit = has({ permission: "org:billing:manage" })
+  const canEdit = has({ permission: "org:posts:manage" })
   const canDelete = has({ permission: "org:posts:delete" })
 
   return (

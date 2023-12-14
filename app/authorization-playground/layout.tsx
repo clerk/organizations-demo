@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react"
-import { auth, OrganizationList, Protect } from "@clerk/nextjs"
+import { auth, OrganizationList } from "@clerk/nextjs"
 import Link from "next/link"
 
 export default function AuthorizationPlaygroundLayout(
   props: PropsWithChildren
 ) {
-  const { orgId, has } = auth()
+  const { orgId, has } = auth().protect({ redirectUrl: "/sign-in" })
 
   if (!orgId) {
     return (

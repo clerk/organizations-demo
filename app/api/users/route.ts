@@ -1,4 +1,4 @@
-import { auth, clerkClient } from "@clerk/nextjs"
+import { auth } from "@clerk/nextjs"
 
 export function GET() {
   //   TODO: Find a usecase for this

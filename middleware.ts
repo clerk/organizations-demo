@@ -4,7 +4,7 @@ import { authMiddleware, redirectToSignIn } from "@clerk/nextjs/server"
 
 export default authMiddleware({
   ignoredRoutes: ["/api/webhooks/:path*"],
-  publicRoutes: ["/login", "/register", "/"],
+  publicRoutes: ["/", /^(\/(sign-in|sign-up|authorization-playground)\/*).*$/],
 
   afterAuth(auth, req) {
     // handle users who aren't authenticated

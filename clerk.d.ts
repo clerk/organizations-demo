@@ -1,9 +1,4 @@
 interface ClerkAuthorization {
-  permission:
-    | "org:posts:delete"
-    | "org:posts:manage"
-    | "org:billing:manage"
-    | "org:billing:read"
-    | "org:posts:read"
-  role: "org:editor" | "admin" | "org:viewer"
+  permission: "org:posts:delete" | "org:posts:manage" | "org:posts:read"
+  role: "org:admin" | "org:editor" | "org:viewer"
 }
