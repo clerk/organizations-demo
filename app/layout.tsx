@@ -27,7 +27,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
             <nav className={"ml-auto flex gap-4"}>
               <Link href="/">Home</Link>
-              <Link href="https://github.com/clerk/organizations-demo">
+              <Link
+                href="https://github.com/clerk/organizations-demo"
+                target={"_blank"}
+              >
                 Github
               </Link>
             </nav>

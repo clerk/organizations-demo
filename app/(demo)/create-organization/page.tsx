@@ -13,7 +13,7 @@ export default function CreateOrganizationPage() {
       <div className={"flex w-full flex-col"}>
         <h1>UI Component</h1>
         <ClerkLoading>Loading ...</ClerkLoading>
-        <CreateOrganization />
+        <CreateOrganization skipInvitationScreen={true} />
         <h1 className="mb-4 mt-20">Custom UI </h1>
         <CustomCreateOrganizationForm />
         <h2 className="mb-4 mt-8">List your memberships</h2>

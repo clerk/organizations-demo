@@ -25,6 +25,7 @@ export default function CreateOrganizationPage() {
           afterSelectPersonalUrl="/"
           afterCreateOrganizationUrl="/:id"
           afterSelectOrganizationUrl="/:id"
+          skipInvitationScreen={true}
         />
 
         <h1 className="mb-4 mt-20">Pre-built OrganizationSwitcher</h1>

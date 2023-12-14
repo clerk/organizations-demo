@@ -19,7 +19,7 @@ export default function AuthorizationPlaygroundLayout(
               organization, you can accept an invitation or create your own
               organization
             </p>
-            <OrganizationList hidePersonal={true} />
+            <OrganizationList hidePersonal={true} skipInvitationScreen={true} />
           </div>
         </section>
       </div>

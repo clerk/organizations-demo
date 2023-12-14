@@ -3,7 +3,6 @@ import { shouldGate } from "@/utils/organizations"
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs/server"
 
 export default authMiddleware({
-  ignoredRoutes: ["/api/webhooks/:path*"],
   publicRoutes: ["/", /^(\/(sign-in|sign-up|authorization-playground)\/*).*$/],
 
   afterAuth(auth, req) {
