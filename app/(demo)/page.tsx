@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 export const metadata = {
-  title: "Homepage",
+  title: "Clerk | Organization Demo",
 }
 
 export default function DashboardPage() {

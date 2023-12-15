@@ -10,7 +10,7 @@ import {
   MySuggestions,
 } from "@/components/OrganizationList"
 
-export default function CreateOrganizationPage() {
+export default function DiscoverPage() {
   return (
     <main
       className={

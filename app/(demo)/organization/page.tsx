@@ -7,7 +7,7 @@ import {
   OrgVerifiedDomains,
 } from "@/components/CustomOrganizationProfile"
 
-export default function CreateOrganizationPage() {
+export default function OrganizationPage() {
   return (
     <main className={"flex h-full w-full items-center justify-center"}>
       <div className={"flex flex-col pb-12"}>
