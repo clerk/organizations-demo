@@ -124,7 +124,7 @@ export const MySuggestions = () => {
             <div>
               <button
                 onClick={async () => {
-                  await mem.accept
+                  await mem.accept()
                   await userMemberships.revalidate()
                   await userSuggestions.revalidate()
                 }}

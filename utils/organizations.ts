@@ -17,3 +17,30 @@ export const UserSuggestionsParams = {
     infinite: true,
   },
 }
+
+export const OrgMembersParams = {
+  memberships: {
+    pageSize: 5,
+    keepPreviousData: true,
+  },
+}
+
+export const OrgInvitationsParams = {
+  invitations: {
+    pageSize: 5,
+    // TODO: Seems like keepPreviousData is broken
+    keepPreviousData: true,
+  },
+}
+export const OrgMembershipRequestsParams = {
+  membershipRequests: {
+    pageSize: 5,
+    keepPreviousData: true,
+  },
+}
+
+export const OrgDomainParams = {
+  domains: {
+    infinite: true,
+  },
+}
