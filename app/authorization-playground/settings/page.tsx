@@ -23,6 +23,8 @@ export default function CustomAppSettings() {
           }}
         />
 
+        {/*TODO: Add role checks as well*/}
+
         <h2>Post Organization Settings</h2>
         {/*TODO: Add a fake form*/}
         {/*<Experimental__Gate*/}

@@ -15,12 +15,7 @@ function PostItem(props: PostItemProps) {
       <p className="font-semibold">{props.title}</p>
 
       <div className="relative border border-blue-500 px-5 py-2 before:absolute before:-top-4 before:left-0 before:text-xs before:text-blue-500 before:content-['RSC']">
-        <Protect
-          condition={(has) =>
-            has({ permission: "org:posts:delete" }) ||
-            has({ permission: "org:posts:delete" })
-          }
-        >
+        <Protect condition={(has) => has({ permission: "org:posts:manage" })}>
           <PostActions {...props} />
         </Protect>
       </div>

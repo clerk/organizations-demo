@@ -38,6 +38,14 @@ export default function DashboardPage() {
             Create Organization
           </Link>
         </li>
+        <li>
+          <Link
+            href="/route-handlers"
+            className="block rounded border p-5 text-center text-lg font-medium shadow"
+          >
+            Test endpoints
+          </Link>
+        </li>
       </ul>
     </main>
   )

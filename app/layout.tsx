@@ -41,6 +41,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                   rootBox: "flex",
                 },
               }}
+              afterSignOutUrl={"/"}
             />
           </header>
           {children}
