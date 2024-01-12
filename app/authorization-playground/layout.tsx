@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react"
-import { auth, OrganizationList } from "@clerk/nextjs"
+import { OrganizationList } from "@clerk/nextjs"
+import { auth } from "@clerk/nextjs/server"
 import Link from "next/link"
 
 export default function AuthorizationPlaygroundLayout(

@@ -20,30 +20,34 @@ export const MyMemberships = () => {
   return (
     <>
       <ul>
-        {userMemberships.data?.map((mem) => (
-          <li key={mem.id} className="flex w-full justify-between">
-            <span>{mem.organization.name}</span>
-            <div>
-              <button
-                onClick={() => setActive({ organization: mem.organization.id })}
-              >
-                Select
-              </button>
-              <button
-                onClick={() =>
-                  setActive({
-                    organization: mem.organization.id,
-                    beforeEmit: () => {
-                      push("/organization")
-                    },
-                  })
-                }
-              >
-                Redirect
-              </button>
-            </div>
-          </li>
-        ))}
+        {userMemberships.data?.map((mem) => {
+          return (
+            <li key={mem?.id} className="flex w-full justify-between">
+              <span>{mem?.organization.name}</span>
+              <div>
+                <button
+                  onClick={() =>
+                    setActive({ organization: mem?.organization.id })
+                  }
+                >
+                  Select
+                </button>
+                <button
+                  onClick={() =>
+                    setActive({
+                      organization: mem?.organization.id,
+                      beforeEmit: () => {
+                        push("/organization")
+                      },
+                    })
+                  }
+                >
+                  Redirect
+                </button>
+              </div>
+            </li>
+          )
+        })}
       </ul>
 
       <button

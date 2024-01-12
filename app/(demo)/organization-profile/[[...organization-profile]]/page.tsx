@@ -13,7 +13,7 @@ export default function OrganizationPage() {
       <div className={"flex flex-col pb-12"}>
         <h1 className="mb-6 mt-12">UI Component</h1>
         <ClerkLoading>Loading ...</ClerkLoading>
-        <OrganizationProfile />
+        <OrganizationProfile path="/organization-profile" />
         <h1 className="mb-6 mt-12">Custom List Domains</h1>
         <OrgVerifiedDomains />
         <h1 className="mb-6 mt-12">Custom List Invitations</h1>

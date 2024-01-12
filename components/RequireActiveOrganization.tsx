@@ -1,4 +1,5 @@
-import { auth, OrganizationList } from "@clerk/nextjs"
+import { OrganizationList } from "@clerk/nextjs"
+import { auth } from "@clerk/nextjs/server"
 import { PropsWithChildren } from "react"
 
 export const RequireActiveOrganization = (props: PropsWithChildren) => {
