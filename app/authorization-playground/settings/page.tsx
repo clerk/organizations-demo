@@ -1,4 +1,5 @@
-import { ClerkLoading, OrganizationProfile, auth } from "@clerk/nextjs"
+import { ClerkLoading, OrganizationProfile } from "@clerk/nextjs"
+import { auth } from "@clerk/nextjs/server"
 
 export default function CustomAppSettings() {
   auth().protect({
@@ -15,6 +16,7 @@ export default function CustomAppSettings() {
         <h2>Clerk Organization Settings</h2>
         <ClerkLoading>Loading ...</ClerkLoading>
         <OrganizationProfile
+          path="/authorization-playground/settings"
           appearance={{
             elements: {
               rootBox: "w-full",

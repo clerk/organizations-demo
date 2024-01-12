@@ -24,7 +24,7 @@ export default function DashboardPage() {
         </li>
         <li>
           <Link
-            href="/organization"
+            href="/organization-profile"
             className="block rounded border p-5 text-center text-lg font-medium shadow"
           >
             Organization Profile
