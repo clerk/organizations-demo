@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> This repo is archived. Please go to https://github.com/clerk/orgs for the latest organization examples and demo apps.
+
 <p align="center">
   <a href="https://www.clerk.com/?utm_source=github&utm_medium=starter_repos&utm_campaign=organization_demo" target="_blank" rel="noopener noreferrer">
     <picture>
